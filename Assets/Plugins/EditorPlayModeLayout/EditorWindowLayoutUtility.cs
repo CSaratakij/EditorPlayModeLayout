@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -78,15 +79,21 @@ namespace EditorPlayModeLayout
             if (_miSaveWindowLayout != null)
             {
                 _miSaveWindowLayout.Invoke(null, new object[] { path });
-    // Note : reflection for unity 202
             }
         }
 
         public static void LoadLayout(string path)
         {
-            if (_miLoadWindowLayout != null)
+            if (_miLoadWindowLayout == null)
             {
-                _miLoadWindowLayout.Invoke(null, new object[] { path, true, true, true });
+                return;
+            }
+
+            bool result = (bool)_miLoadWindowLayout.Invoke(null, new object[] { path, true, true, true });
+
+            if (!result)
+            {
+                LoadCurrentModeLayout(keepMainWindow: true);
             }
         }
 
@@ -139,5 +146,3 @@ namespace EditorPlayModeLayout
         }
     }
 }
-
-    // Note : reflection for unity 202

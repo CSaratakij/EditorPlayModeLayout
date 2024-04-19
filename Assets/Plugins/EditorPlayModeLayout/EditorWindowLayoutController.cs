@@ -32,8 +32,7 @@ namespace EditorPlayModeLayout
                 {
                     await Task.Delay(1);
                     EditorWindowLayoutUtility.SaveDefaultWindowPreferences();
-                    EditorWindowLayoutUtility.LoadLayoutFromAsset("Assets/Plugins/EditorPlayModeLayout/Resources/playModeLayout.wlt");
-                    //EditorWindowLayoutUtility.LoadLayoutFromAsset("Assets/Plugins/EditorPlayModeLayout/Resources/playModeLayoutFullScreen.wlt");
+                    EditorWindowLayoutUtility.LoadLayoutFromAsset("UserSettings/Layouts/playModeLayout.wlt");
                     EditorWindowLayoutUtility.UpdateWindowLayoutMenu();
                 }
                 break;
