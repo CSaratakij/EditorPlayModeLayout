@@ -16,6 +16,8 @@ namespace EditorPlayModeLayout
                 guiHandler = (searchContext) => 
                 {
                     EditorGUI.BeginChangeCheck();
+                    EditorGUI.BeginDisabledGroup(EditorApplication.isPlaying || EditorApplication.isPaused);
+
                     var settings = EditorPlayModeLayoutSettings.instance;
 
                     bool isEnable = settings.Enable;
@@ -37,6 +39,8 @@ namespace EditorPlayModeLayout
                         settings.PlayModeLayoutPath = playModeLayoutPath;
                         settings.Save();
                     }
+
+                    EditorGUI.EndDisabledGroup();
                 },
                 keywords = new HashSet<string>(new [] { "EditorPlayMode", "EditorPlayModeLayout", "layout" })
             };
