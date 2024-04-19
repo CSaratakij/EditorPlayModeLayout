@@ -18,36 +18,40 @@ namespace EditorPlayModeLayout
 
         private static async void OnPlayModeStateChange(PlayModeStateChange state)
         {
+            var settings = EditorPlayModeLayoutSettings.instance;
+
+            if (!settings.Enable)
+            {
+                return;
+            }
+
             if (!EditorWindowLayoutUtility.IsAvailable)
             {
                 Debug.LogWarning($"{nameof(EditorWindowLayoutController)} : internal editor api not available...");
                 return;
             }
 
-            //Debug.Log($"{nameof(EditorWindowLayoutController)} : change to state ({state})");
-
             switch (state)
             {
                 case PlayModeStateChange.EnteredPlayMode:
                 {
                     await Task.Delay(1);
-                    EditorWindowLayoutUtility.SaveDefaultWindowPreferences();
-                    EditorWindowLayoutUtility.LoadLayoutFromAsset("UserSettings/Layouts/playModeLayout.wlt");
-                    EditorWindowLayoutUtility.UpdateWindowLayoutMenu();
+
+                    string currentPlayModeLayoutPath = settings.PlayModeLayoutPath;
+                    bool shouldChangeLayout = !string.IsNullOrEmpty(currentPlayModeLayoutPath);
+
+                    if (shouldChangeLayout)
+                    {
+                        EditorWindowLayoutUtility.SaveDefaultWindowPreferences();
+                        EditorWindowLayoutUtility.LoadLayoutFromAsset(currentPlayModeLayoutPath);
+                        EditorWindowLayoutUtility.UpdateWindowLayoutMenu();
+                    }
                 }
                 break;
 
                 case PlayModeStateChange.EnteredEditMode:
                 {
-                    try
-                    {
-                        EditorWindowLayoutUtility.LoadCurrentModeLayout(keepMainWindow: true);
-                    }
-                    catch (Exception)
-                    {
-                        EditorWindowLayoutUtility.LoadDefaultLayout();
-                    }
-
+                    EditorWindowLayoutUtility.LoadCurrentModeLayout(keepMainWindow: true);
                     EditorWindowLayoutUtility.UpdateWindowLayoutMenu();
                 }
                 break;
