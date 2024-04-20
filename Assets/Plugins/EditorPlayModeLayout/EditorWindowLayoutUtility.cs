@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -19,14 +20,9 @@ namespace EditorPlayModeLayout
         private static MethodInfo _miSaveWindowLayout;
         private static MethodInfo _miSaveDefaultWindowPreferences;
         private static MethodInfo _miUpdateWindowLayoutMenu;
-        private static bool _available;
-        private static string _layoutsPath;
 
-        // Gets a value indicating whether all required Unity API functionality is available for usage.
         public static bool IsAvailable => _available;
-
-        // Gets absolute path of layouts directory. Returns `null` when not available.
-        public static string LayoutsPath => _layoutsPath;
+        private static bool _available;
 
         static EditorWindowLayoutUtility()
         {
@@ -53,7 +49,8 @@ namespace EditorPlayModeLayout
                         && (_miTryLoadWindowLayout != null)
                         && (_miLoadLastUsedLayoutForCurrentMode != null)
                         && (_miSaveWindowLayout != null)
-                        && (_miSaveDefaultWindowPreferences != null);
+                        && (_miSaveDefaultWindowPreferences != null)
+                        && (_miUpdateWindowLayoutMenu != null);
 
             _available = isValid;
         }
@@ -78,15 +75,21 @@ namespace EditorPlayModeLayout
             if (_miSaveWindowLayout != null)
             {
                 _miSaveWindowLayout.Invoke(null, new object[] { path });
-    // Note : reflection for unity 202
             }
         }
 
         public static void LoadLayout(string path)
         {
-            if (_miLoadWindowLayout != null)
+            if (_miLoadWindowLayout == null)
             {
-                _miLoadWindowLayout.Invoke(null, new object[] { path, true, true, true });
+                return;
+            }
+
+            bool result = (bool)_miLoadWindowLayout.Invoke(null, new object[] { path, true, true, true });
+
+            if (!result)
+            {
+                LoadCurrentModeLayout(keepMainWindow: true);
             }
         }
 
@@ -139,5 +142,3 @@ namespace EditorPlayModeLayout
         }
     }
 }
-
-    // Note : reflection for unity 202
