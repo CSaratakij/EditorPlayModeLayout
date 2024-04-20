@@ -1,0 +1,18 @@
+{
+    "name": "com.csaratakij.editorplaymodelayout",
+    "version": "1.0.0",
+    "displayName": "EditorPlayModeLayout",
+    "description": "Change Unity Editor Window to specific layout when enter play mode",
+    "unity": "2022.3",
+    "keywords": [
+        "editorPlayModeLayout",
+        "editorLayout",
+        "layout",
+        "editor"
+    ],
+    "author": {
+        "name": "Chatchai Saratakij",
+        "email": "csaratakij@gmail.com",
+        "url": "https://csaratakij.github.io"
+    }
+}
