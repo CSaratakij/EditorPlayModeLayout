@@ -1,6 +1,8 @@
 # EditorPlayModeLayout
 Change Unity Editor Window to specific layout when enter play mode, restore editor layout back after exit play mode
 
+https://github.com/CSaratakij/EditorPlayModeLayout/assets/9628627/f5521699-5509-4fed-9b13-0d9b3d20fdb7
+
 ## Install
 ### UPM package (Recommend)
 - install with package manager : https://github.com/CSaratakij/EditorPlayModeLayout.git#upm
