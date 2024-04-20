@@ -1,9 +1,8 @@
 # EditorPlayModeLayout
-- Change Unity Editor Window to specific layout when enter play mode, restore editor layout back after exit play mode
+Change Unity Editor Window to specific layout when enter play mode, restore editor layout back after exit play mode
 
-# Getting Started
+## Getting Started
 - TODO
 
-# Note
+## Note
 - Tested only in Unity 2022.3
-
